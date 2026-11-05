@@ -1,0 +1,14 @@
+h2{font-size:22px}h3{font-size:17px;margin:14px 0 10px}
+.token{background:var(--navy);color:#fff;border-radius:12px;padding:8px 12px;text-align:center}
+.token small{display:block;font-size:10px;opacity:.7}
+.balance{background:linear-gradient(135deg,var(--blue),var(--navy));color:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.balance small{opacity:.8;font-size:12px}
+.lbl{margin-top:14px;opacity:.85;font-size:13px}
+.eye{background:none;border:0;cursor:pointer}
+.amount{font-size:34px;font-weight:800;margin:4px 0 12px}
+.link.light{color:var(--cyan)}
+.recargar{background:var(--cyan);color:var(--navy)}
+.mini-card{margin-bottom:16px}
+.promo{margin-top:6px}.promo h3{margin:10px 0 6px}
+.cta{background:var(--cyan);color:var(--navy);margin-top:12px}
+.d{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

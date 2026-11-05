@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1, "newProjectRoot": "projects",
+  "projects": { "ruben-banco-app": { "projectType": "application", "root": "", "sourceRoot": "src",
+    "architect": {
+      "build": { "builder": "@angular-devkit/build-angular:application",
+        "options": { "outputPath": "dist/ruben-banco-app", "index": "src/index.html", "browser": "src/main.ts",
+          "polyfills": ["zone.js"], "tsConfig": "tsconfig.json", "assets": ["src/assets"], "styles": ["src/styles.css"] } },
+      "serve": { "builder": "@angular-devkit/build-angular:dev-server", "options": { "buildTarget": "ruben-banco-app:build" } }
+    }
+  }
+},
+"cli": {
+  "analytics": "715c355b-1a39-4cd5-917b-7975b76ccf81"
+}
+}

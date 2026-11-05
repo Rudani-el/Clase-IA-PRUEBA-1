@@ -1,0 +1,27 @@
+:host { display:block; min-height:100vh; background:#fff; }
+.fingerprint-screen { display:flex; flex-direction:column; align-items:center; width:min(100%,430px); min-height:100vh; margin:0 auto; padding:56px 28px 30px; background:#fff; }
+.secure-pill { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:999px; background:#e9f8fc; color:#1239c5; font-size:12px; font-weight:700; }
+.secure-pill span:first-child { font-size:14px; }
+.fingerprint-content { width:100%; margin-top:74px; text-align:center; }
+.bank-logo { display:block; width:min(100%,230px); height:auto; margin:0 auto 24px; }
+.fingerprint-icon { display:grid; width:168px; height:168px; margin:0 auto 22px; place-items:center; border-radius:50%; background:#e7f7fb; }
+.fingerprint-ring { display:grid; width:128px; height:128px; place-items:center; border:1.5px solid #1fbedd; border-radius:50%; background:#fff; }
+.fingerprint-ring svg { width:84px; height:84px; fill:none; stroke:#1239c5; stroke-linecap:round; stroke-linejoin:round; stroke-width:5; }
+.fingerprint-icon.scanning .fingerprint-ring { animation:read-pulse .7s ease-in-out infinite alternate; }
+.fingerprint-icon.complete .fingerprint-ring { border-color:#0f9d6b; }
+.fingerprint-icon.complete svg { stroke:#0f9d6b; }
+h1 { margin:0; color:#102454; font-size:22px; font-weight:800; line-height:1.3; }
+.instructions { max-width:340px; margin:8px auto 18px; color:#596985; font-size:14px; line-height:1.5; }
+.capture-progress { margin:18px 0 20px; color:#596985; font-size:12px; font-weight:600; }
+.capture-bars { display:flex; gap:6px; }
+.capture-bars span { height:7px; flex:1; border-radius:8px; background:#d9dfeb; }
+.capture-bars span.done { background:#1239c5; }
+.capture-progress p { margin:8px 0 0; }
+.primary-button { width:100%; min-height:52px; margin-top:8px; border:0; border-radius:12px; background:#1239c5; color:#fff; font:inherit; font-size:15px; font-weight:800; cursor:pointer; }
+.primary-button:disabled { opacity:.7; cursor:wait; }
+.skip-button { display:block; width:fit-content; margin:20px auto 0; padding:4px 12px; border:0; background:transparent; color:#1239c5; font:inherit; font-size:14px; font-weight:700; cursor:pointer; }
+.demo-note { margin:12px 0 0; color:#737e94; font-size:11px; line-height:1.4; }
+.privacy-note { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:auto; padding-top:24px; color:#69758d; font-size:12px; text-align:center; }
+.privacy-note span { color:#1239c5; font-size:16px; }
+@keyframes read-pulse { to { transform:scale(.92); opacity:.65; } }
+@media (max-height:720px) { .fingerprint-screen{padding-top:28px}.fingerprint-content{margin-top:42px}.bank-logo{width:min(100%,200px);margin-bottom:18px}.fingerprint-icon{width:136px;height:136px;margin-bottom:14px}.fingerprint-ring{width:106px;height:106px}.fingerprint-ring svg{width:70px;height:70px}.instructions{margin-bottom:12px}.privacy-note{padding-top:18px} }

@@ -1,0 +1,73 @@
+<div class="screen">
+  <div class="topbar"><b class="brand">RUBEN S.A.</b><span class="pill">🔒 SSL 256-BIT</span></div>
+  <div class="row"><span class="step">CENTRO DE PLÁSTICOS</span><button class="btn sm primary">+ Solicitar</button></div>
+  <h1 style="text-align:left;margin-top:8px">Mis Tarjetas Ruben S.A.</h1>
+  <p class="muted">Administra tus plásticos físicos y virtuales de forma segura e instantánea.</p>
+
+  <div class="chips">
+    <button class="chip" [class.on]="filtro === 'todas'" (click)="filtro = 'todas'">Todas {{ tarjetas.length }}</button>
+    <button class="chip" [class.on]="filtro === 'debito'" (click)="filtro = 'debito'">Débito {{ contar('debito') }}</button>
+    <button class="chip" [class.on]="filtro === 'credito'" (click)="filtro = 'credito'">Crédito {{ contar('credito') }}</button>
+    <button class="chip" [class.on]="filtro === 'smart'" (click)="filtro = 'smart'">Smart Save</button>
+  </div>
+
+  @for (t of lista; track t.ultimos) {
+    <div class="card">
+      <div class="plastic" [class]="'plastic ' + t.tipo" [class.frozen]="t.congelada">
+        <div class="row"><b>Ruben S.A.</b><small>{{ t.nombre }}</small></div>
+        <small>{{ t.subtitulo }}</small>
+        <p class="num">•••• •••• •••• {{ t.ultimos }}</p>
+        @if (t.titular) {
+          <div class="row"><small>TITULAR<br><b>{{ t.titular }}</b></small><small>EXPIRA<br><b>{{ t.expira }}</b></small><b>{{ t.marca }}</b></div>
+        } @else {
+          <div class="row"><small>OBJETIVO VINCULADO<br><b>Fondo de Emergencia & Vacaciones</b></small><small>RENDIMIENTO<br><b>{{ meta.tea }}% TEA</b></small></div>
+        }
+        @if (t.congelada) { <span class="ice">❄️ Congelada</span> }
+      </div>
+
+      @switch (t.tipo) {
+        @case ('debito') {
+          <div class="row"><span class="muted">Saldo Disponible Vinculado</span><span class="tag" [class.off]="t.congelada">{{ t.congelada ? 'Congelada' : 'Activa' }}</span></div>
+          <p class="big">{{ saldoDebito | currency:'USD' }} <small class="muted">USD</small></p>
+        }
+        @case ('credito') {
+          <span class="muted">Línea de Crédito Disponible</span>
+          <p class="big">{{ credito.disponible | currency:'USD' }} <small class="muted">de {{ credito.total | currency:'USD' }}</small></p>
+          <div class="progress"><i [style.width.%]="usado"></i></div>
+          <div class="row muted"><span>{{ usado }}% Usado</span><span>Cupo total $12K</span></div>
+          <div class="row" style="margin-top:6px"><b>Cierre: {{ credito.cierre }}</b><span>Pago Mínimo: <b>{{ credito.minimo | currency:'USD' }} USD</b></span></div>
+        }
+        @case ('smart') {
+          <span class="muted">Monto Acumulado</span>
+          <p class="big">{{ meta.acumulado | currency:'USD' }} <small class="muted">de {{ meta.objetivo | currency:'USD' }}</small></p>
+          <div class="progress"><i [style.width.%]="avanceMeta"></i></div>
+          <div class="row muted"><span>{{ avanceMeta }}% Completado</span><span>Faltan {{ meta.objetivo - meta.acumulado | currency:'USD' }}</span></div>
+          <div class="row" style="margin-top:6px"><b>Aporte Auto: {{ meta.aporte | currency:'USD' }}/mes</b><span>Próximo: {{ meta.proximo }}</span></div>
+        }
+      }
+      <div class="grid3" style="margin-top:14px">
+        @for (a of t.acciones; track a) {
+          <button class="tile" (click)="accion(t, a)">{{ a === 'Congelar' && t.congelada ? 'Descongelar' : a }}</button>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="card">
+    <div class="row"><h3>Controles de Seguridad Inmediata</h3></div>
+    <p class="muted">Aplica a plásticos activos</p>
+    @for (c of controles; track c.titulo) {
+      <div class="list-item">
+        <div class="grow"><b>{{ c.titulo }}</b><p class="muted">{{ c.desc }}</p></div>
+        <label class="switch" style="margin:0"><input type="checkbox" [(ngModel)]="c.on"><span></span></label>
+      </div>
+    }
+    <button class="btn danger" [disabled]="bloqueoEmergencia" (click)="bloquear()">
+      {{ bloqueoEmergencia ? '✔ Todas las tarjetas bloqueadas' : '⚠ Bloqueo de Emergencia por Extravío o Sospecha' }}</button>
+  </div>
+
+  <div class="card dark"><b>Protección Ruben S.A. Digital Trust</b>
+    <p>Tus tarjetas cuentan con cifrado 256-bit SSL, Tokenización Visa/Mastercard y póliza integral contra fraude electrónico.</p>
+    <p><small>Póliza activa #RS-99214-FRAUDE</small></p></div>
+  <app-bottom-nav />
+</div>

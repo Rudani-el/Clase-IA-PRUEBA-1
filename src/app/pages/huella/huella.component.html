@@ -1,0 +1,47 @@
+<main class="fingerprint-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span><span>Conexión cifrada</span>
+  </div>
+
+  <section class="fingerprint-content" aria-labelledby="fingerprint-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+
+    <div class="fingerprint-icon" [class.scanning]="registrando" [class.complete]="completado" aria-hidden="true">
+      <div class="fingerprint-ring">
+        <svg viewBox="0 0 100 100" role="presentation">
+          <path d="M50 16c-18 0-31 13-31 31M50 26c-12 0-21 9-21 21 0 13-2 23-7 31M50 36c-7 0-12 5-12 12 0 16-2 27-7 38M50 26c12 0 21 9 21 21 0 16-2 29-7 40M50 36c7 0 12 5 12 12 0 17-2 30-6 39M38 18c4-3 8-4 12-4 8 0 15 3 20 9M79 35c3 5 4 10 4 16M22 53c0 7-1 13-3 18M50 47c2 0 4 2 4 5 0 11-1 20-3 28" />
+        </svg>
+      </div>
+    </div>
+
+    <h1 id="fingerprint-title">{{ completado ? 'Huella registrada' : 'Registra tu huella' }}</h1>
+    <p class="instructions">
+      {{ completado
+        ? '¿Deseas usar tu huella para iniciar sesión en este dispositivo?'
+        : 'Coloca tu dedo sobre el sensor y mantenlo hasta que vibre. Este registro se hace una sola vez.' }}
+    </p>
+
+    @if (registrando || completado) {
+      <div class="capture-progress" aria-live="polite">
+        <div class="capture-bars">
+          @for (etapa of etapas; track etapa) {
+            <span [class.done]="capturas >= etapa"></span>
+          }
+        </div>
+        <p>{{ completado ? 'Captura completada' : 'Captura ' + capturas + ' de 5' }}</p>
+      </div>
+    }
+
+    @if (!completado) {
+      <button class="primary-button" type="button" [disabled]="registrando" (click)="iniciarRegistro()">
+        {{ registrando ? 'Leyendo huella…' : 'Registrar huella' }}
+      </button>
+    } @else {
+      <button class="primary-button" type="button" (click)="activarHuella()">Activar ingreso con huella</button>
+    }
+    <button class="skip-button" type="button" (click)="omitir()">Ahora no</button>
+    <p class="demo-note">Demostración: el navegador no lee ni almacena una huella real.</p>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>

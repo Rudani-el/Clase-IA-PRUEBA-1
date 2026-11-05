@@ -1,0 +1,43 @@
+<main class="password-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span>
+    <span>Conexión cifrada</span>
+  </div>
+
+  <section class="password-content" aria-labelledby="password-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+    <h1 id="password-title">Crea tu contraseña</h1>
+    <p class="subtitle">Número confirmado. Ahora protege tu cuenta.</p>
+
+    <form (ngSubmit)="crear()" novalidate>
+      <div class="form-group">
+        <label for="clave">Contraseña</label>
+        <input id="clave" name="clave" type="password" [(ngModel)]="clave"
+          placeholder="Crea tu contraseña" autocomplete="new-password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmar">Confirmar contraseña</label>
+        <input id="confirmar" name="confirmar" type="password" [(ngModel)]="confirmar"
+          placeholder="Repite tu contraseña" autocomplete="new-password" required>
+      </div>
+
+      <ul class="requirements" aria-label="Requisitos de seguridad">
+        @for (regla of reglas; track regla.texto) {
+          <li [class.complete]="regla.ok">
+            <span class="check-icon" aria-hidden="true">{{ regla.ok ? '✓' : '○' }}</span>
+            <span>{{ regla.texto }}</span>
+          </li>
+        }
+      </ul>
+
+      @if (errorCreacion) {
+        <p class="form-error" role="alert">{{ errorCreacion }}</p>
+      }
+
+      <button class="create-button" type="submit" [disabled]="!valido">Crear contraseña</button>
+    </form>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>

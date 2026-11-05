@@ -1,0 +1,47 @@
+<main class="otp-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span>
+    <span>Conexión cifrada</span>
+  </div>
+
+  <section class="otp-content" aria-labelledby="otp-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+
+    <div class="message-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="presentation">
+        <path d="M20.2 11.4a8.3 8.3 0 0 1-8.5 8.1 9 9 0 0 1-3.4-.7l-4.5 1.3 1.4-4.1a7.7 7.7 0 0 1-1.8-4.8 8.3 8.3 0 0 1 8.5-8.1 8.3 8.3 0 0 1 8.3 8.3Z" />
+        <circle cx="8.3" cy="11.7" r=".8" />
+        <circle cx="11.8" cy="11.7" r=".8" />
+        <circle cx="15.3" cy="11.7" r=".8" />
+      </svg>
+    </div>
+
+    <h1 id="otp-title">Confirma tu número</h1>
+    <p class="instructions">Enviamos un código de 6 dígitos por mensaje SMS al celular terminado en <strong>••• {{ terminacion }}</strong></p>
+
+    <div class="otp-inputs" role="group" aria-label="Código OTP de seis dígitos">
+      @for (digito of codigo; track $index) {
+        <input #otpInput type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+          [value]="digito" (input)="actualizarCodigo($event, $index)"
+          (keydown)="manejarTecla($event, $index)" [attr.aria-label]="'Dígito ' + ($index + 1)"
+          [attr.aria-invalid]="errorCodigo ? 'true' : null" autocomplete="one-time-code">
+      }
+    </div>
+
+    @if (errorCodigo) {
+      <p class="otp-error" role="alert">{{ errorCodigo }}</p>
+    }
+
+    <button class="confirm-button" type="button" [disabled]="!completo" (click)="validar()">Confirmar</button>
+
+    @if (segundos > 0) {
+      <p class="resend-timer">¿No recibiste el SMS? Reenviar en {{ tiempo }}</p>
+    } @else {
+      <p class="resend-timer">¿No recibiste el SMS?</p>
+    }
+    <button class="text-action" type="button" [disabled]="segundos > 0" (click)="reenviar()">Reenviar código por SMS</button>
+    <a class="text-action change-number" routerLink="/registro">Cambiar número de celular</a>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>

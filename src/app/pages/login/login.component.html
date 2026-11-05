@@ -1,0 +1,81 @@
+<main class="login-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span>
+    <span>Conexión cifrada</span>
+  </div>
+
+  <section class="login-content" aria-labelledby="login-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+    <h1 id="login-title">Inicia sesión</h1>
+
+    <form (ngSubmit)="ingresar()" novalidate>
+      <div class="form-group">
+        <label for="usuario">Usuario</label>
+        <input
+          id="usuario"
+          name="usuario"
+          type="email"
+          [(ngModel)]="usuario"
+          (ngModelChange)="actualizarUsuario()"
+          placeholder="Correo Electrónico"
+          autocomplete="username"
+          inputmode="email"
+          required
+          [attr.aria-invalid]="mostrarErrorUsuario ? 'true' : null"
+          aria-describedby="usuario-error">
+        @if (mostrarErrorUsuario) {
+          <p class="field-error" id="usuario-error">Ingresa un correo electrónico válido.</p>
+        }
+      </div>
+
+      @if (huellaDisponible) {
+        <div class="access-methods" role="group" aria-label="Método de inicio de sesión">
+          <button type="button" [class.selected]="modoAcceso === 'password'" (click)="seleccionarModo('password')">Contraseña</button>
+          <button type="button" [class.selected]="modoAcceso === 'huella'" (click)="seleccionarModo('huella')">Huella dactilar</button>
+        </div>
+      }
+
+      @if (modoAcceso === 'password') {
+        <div class="form-group password-group">
+          <label for="contrasena">Contraseña</label>
+          <div class="password-field" [class.invalid]="mostrarErrorContrasena">
+            <input
+              id="contrasena"
+              name="contrasena"
+              type="password"
+              [(ngModel)]="contrasena"
+              (ngModelChange)="limpiarEstado()"
+              placeholder="Tu contraseña"
+              autocomplete="current-password"
+              required
+              [attr.aria-describedby]="mostrarErrorContrasena ? 'contrasena-error' : null">
+          </div>
+          @if (mostrarErrorContrasena) {
+            <p class="field-error" id="contrasena-error">Usa 8+ caracteres con mayúscula, minúscula, número y símbolo.</p>
+          }
+        </div>
+      } @else {
+        <div class="fingerprint-login-note">
+          <span class="fingerprint-glyph" aria-hidden="true">◎</span>
+          <p>Acceso con huella activado para este dispositivo.</p>
+          <small>Autenticación de demostración</small>
+        </div>
+      }
+
+      @if (errorAcceso) {
+        <p class="login-error" role="alert">{{ errorAcceso }}</p>
+      }
+
+      @if (modoAcceso === 'password') {
+        <button class="submit-button" type="submit">Ingresar</button>
+      } @else {
+        <button class="submit-button" type="button" (click)="ingresarConHuella()">Ingresar con huella</button>
+      }
+    </form>
+
+    <a class="forgot-link" routerLink="/contrasena">¿Olvidaste tu contraseña?</a>
+    <a class="account-link" routerLink="/registro">¿No tienes cuenta? Crear una cuenta</a>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>

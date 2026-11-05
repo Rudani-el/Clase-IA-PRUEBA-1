@@ -1,0 +1,57 @@
+<div class="screen">
+  <div class="topbar">
+    <div><p class="muted">Buenos días, <span class="tag">VERIFICADO</span></p><h2>¡Hola, Ruben!</h2></div>
+    <div class="token"><small>TOKEN</small><b>{{ token }}</b></div>
+  </div>
+
+  <div class="balance">
+    <div class="row"><span>Cuenta Sueldo Ahorros - USD ($)</span><button class="link light">Cambiar</button></div>
+    <div class="row" style="margin-top:6px"><small>RUBEN DÉBITO PLATINUM</small><span class="tag">Activa</span></div>
+    <p class="lbl">Saldo total disponible <button class="eye" (click)="ocultar = !ocultar">{{ ocultar ? '🙈' : '👁' }}</button></p>
+    <p class="amount">{{ ocultar ? '$ ••••••' : (saldo | currency:'USD') }}</p>
+    <div class="row"><small>N° CUENTA **** 4920<br>CCI: {{ cci }}</small><button class="btn sm ghost" (click)="copiar()">{{ copiado ? '¡Copiado!' : 'Copiar' }}</button></div>
+    <button class="btn recargar">＋ Recargar saldo</button>
+  </div>
+
+  <div class="grid3" style="margin:16px 0">
+    <button class="tile" routerLink="/transferencias"><b>⇄</b>Transferir<br><span class="muted">A otros bancos</span></button>
+    <button class="tile"><b>🧾</b>Pagar<br><span class="muted">Luz, agua, teléf.</span></button>
+    <button class="tile"><b>▦</b>Retiro QR<br><span class="muted">Sin tarjeta</span></button>
+  </div>
+
+  <div class="row"><h3>Mis Tarjetas</h3><a class="link" routerLink="/tarjetas">Gestionar</a></div>
+  <div class="card mini-card">
+    <div class="row"><b>RUBEN BLACK DÉBITO</b><span class="tag">Activa</span></div>
+    <p class="muted">VISA •••• 8824 · Límite de compras $5,000.00</p>
+    <div class="row" style="margin-top:10px"><button class="btn sm outline">Ver datos</button><button class="btn sm outline">Configurar</button></div>
+  </div>
+
+  <div class="card dark promo">
+    <span class="tag blue">EXCLUSIVO CLIENTES</span>
+    <h3>Plazo Fijo Digital Ruben S.A.</h3>
+    <p>Haz crecer tu dinero con una TEA preferencial del <b>8.25%</b>. Abre tu inversión 100% online en menos de 2 minutos.</p>
+    <button class="btn sm cta">Simular ahora →</button>
+  </div>
+
+  <div class="row"><h3>Movimientos Recientes</h3><a class="link">Ver todos</a></div>
+  <div class="chips">
+    @for (f of filtros; track f.id) { <button class="chip" [class.on]="filtro === f.id" (click)="filtro = f.id">{{ f.label }}</button> }
+  </div>
+  <div class="card">
+    @for (m of lista; track m.desc) {
+      <div class="list-item">
+        <div class="avatar">{{ m.monto > 0 ? '↓' : '↑' }}</div>
+        <div class="grow"><b class="d">{{ m.desc }}</b><p class="muted">{{ m.fecha }} · {{ m.metodo }}</p></div>
+        <div style="text-align:right"><span [class]="m.monto > 0 ? 'pos' : 'neg'">{{ m.monto > 0 ? '+' : '-' }}{{ (m.monto < 0 ? -m.monto : m.monto) | currency:'USD' }}</span><p class="muted">Completado</p></div>
+      </div>
+    }
+  </div>
+
+  <div class="row"><h3>Seguridad Ruben S.A.</h3><span class="tag">Protegido</span></div>
+  <div class="grid2" style="margin-top:10px">
+    <button class="tile">❄️ Apagado Exprés<br><span class="muted">Congelar tarjeta</span></button>
+    <button class="tile">🎧 Mesa de Ayuda<br><span class="muted">24/7 disponible</span></button>
+  </div>
+  <p class="footer">🔒 RUBEN S.A. CIFRADO BANCARIO 256-BIT CERTIFICADO</p>
+  <app-bottom-nav />
+</div>

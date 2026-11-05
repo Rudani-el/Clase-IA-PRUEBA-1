@@ -1,0 +1,11 @@
+h3{font-size:17px;margin:16px 0 10px}
+.origin{background:linear-gradient(135deg,var(--blue),var(--navy));color:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:4px;margin:16px 0}
+.origin small{opacity:.75;font-size:11px;font-weight:700}
+.contacts{display:flex;gap:14px;overflow-x:auto}
+.ct{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600}
+.ct .avatar{border-radius:50%;width:52px;height:52px}
+.avatar.new{border:2px dashed var(--blue);background:#fff}
+.opt{width:100%;background:none;border:0;border-bottom:1px solid #eef0f4;text-align:left;font:inherit;cursor:pointer;font-size:18px;border-radius:10px;padding:12px 6px}
+.opt b{font-size:14px}
+.opt.sel{background:var(--soft)}
+.pos{font-weight:600}.warn{color:#c58a00;font-weight:600}

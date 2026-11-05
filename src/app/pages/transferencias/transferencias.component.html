@@ -1,0 +1,46 @@
+<div class="screen">
+  <h1 style="text-align:left">Transferir Dinero</h1>
+  <p class="muted">Rápido, seguro y sin comisiones ocultas</p>
+
+  <div class="origin">
+    <small>CUENTA ORIGEN · USD</small>
+    <b>Sueldo Ahorros •••• 4920</b>
+    <span>Disponible: <b>{{ saldo | currency:'USD' }}</b></span>
+  </div>
+
+  <div class="row"><h3>Contactos Frecuentes</h3><a class="link">Ver todos ›</a></div>
+  <div class="contacts">
+    <div class="ct"><div class="avatar new">＋</div><small>Nuevo</small></div>
+    @for (c of contactos; track c) { <div class="ct"><div class="avatar">{{ iniciales(c) }}</div><small>{{ c }}</small></div> }
+  </div>
+
+  <h3>Opciones de Transferencia</h3>
+  <div class="card">
+    @for (o of opciones; track o.titulo; let i = $index) {
+      <button class="list-item opt" [class.sel]="opcionSel === i" (click)="opcionSel = i">
+        <div class="avatar">{{ o.icon }}</div>
+        <div class="grow"><b>{{ o.titulo }}</b> <span class="tag blue">{{ o.tag }}</span><p class="muted">{{ o.desc }}</p></div>›
+      </button>
+    }
+  </div>
+
+  <h3>Directorio Interbancario</h3>
+  <p class="muted">Selecciona la entidad destino para transferir</p>
+  <div class="field" style="margin:10px 0"><span style="padding-left:14px">🔍</span><input [(ngModel)]="busqueda" placeholder="Buscar banco, caja o cooperativa..."></div>
+  <div class="card">
+    @for (b of filtrados; track b.sigla) {
+      <button class="list-item opt" [class.sel]="bancoSel === b" (click)="bancoSel = b">
+        <div class="avatar">{{ b.sigla }}</div>
+        <div class="grow"><b>{{ b.nombre }}</b><p class="muted"><span [class]="b.inmediato ? 'pos' : 'warn'">● {{ b.estado }}</span> · {{ b.detalle }}</p></div>
+      </button>
+    } @empty { <p class="muted">No se encontraron entidades.</p> }
+  </div>
+  @if (bancoSel) { <button class="btn primary">Continuar con {{ bancoSel.nombre }} →</button> }
+
+  <div class="card dark" style="margin-top:16px">
+    <div class="row"><b>Transferencias Protegidas</b><span class="tag">TOKEN ACTIVO</span></div>
+    <p>Validación biométrica instantánea y Cifrado SSL 256-Bit bajo estándares Ruben S.A.</p>
+  </div>
+  <p class="footer">🔒 SESIÓN SEGURA RUBEN S.A. BANCO<br>Supervisado por SBS • Miembro del Fondo de Seguro de Depósitos</p>
+  <app-bottom-nav />
+</div>

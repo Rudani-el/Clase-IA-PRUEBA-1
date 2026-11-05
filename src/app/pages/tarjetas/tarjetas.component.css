@@ -1,0 +1,13 @@
+.brand{color:var(--blue);font-size:18px}
+h3{font-size:16px}
+.plastic{position:relative;border-radius:16px;padding:18px;color:#fff;margin-bottom:14px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between}
+.plastic.debito{background:linear-gradient(135deg,#0a33c2,#1fbedd)}
+.plastic.credito{background:linear-gradient(135deg,#0b0f1a,#2b3550)}
+.plastic.smart{background:linear-gradient(135deg,#0f9d6b,#1fbedd)}
+.plastic.frozen{filter:grayscale(.8)}
+.plastic small{opacity:.85;font-size:11px}
+.num{font-size:20px;letter-spacing:2px;font-weight:700}
+.ice{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.9);color:var(--navy);padding:6px 12px;border-radius:999px;font-weight:700}
+.big{font-size:24px;font-weight:800;margin:4px 0 8px}
+.tag.off{background:#e6e8ee;color:var(--muted)}
+.btn.danger{background:#fde8e8;color:var(--danger)}

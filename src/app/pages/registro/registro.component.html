@@ -1,0 +1,59 @@
+<main class="register-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span>
+    <span>Conexión cifrada</span>
+  </div>
+
+  <section class="register-content" aria-labelledby="register-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+    <h1 id="register-title">Crea tu cuenta</h1>
+
+    <form (ngSubmit)="registrar()" novalidate>
+      <div class="form-group">
+        <label for="nombre-usuario">Nombre de usuario</label>
+        <input id="nombre-usuario" name="nombreUsuario" type="text" [(ngModel)]="nombreUsuario"
+          (ngModelChange)="limpiarEstado()" placeholder="Elige tu nombre de usuario"
+          autocomplete="username" maxlength="20" required
+          [attr.aria-invalid]="mostrarErrorUsuario ? 'true' : null"
+          [attr.aria-describedby]="mostrarErrorUsuario ? 'usuario-error' : null">
+        @if (mostrarErrorUsuario) {
+          <p class="field-error" id="usuario-error">Usa 3 a 20 caracteres: letras, números, punto, guion o guion bajo.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="celular">Celular</label>
+        <input id="celular" name="celular" type="tel" [(ngModel)]="celular"
+          (ngModelChange)="limpiarEstado()" placeholder="Número de celular"
+          autocomplete="tel" inputmode="numeric" maxlength="10" required
+          [attr.aria-invalid]="mostrarErrorCelular ? 'true' : null"
+          [attr.aria-describedby]="mostrarErrorCelular ? 'celular-error' : null">
+        @if (mostrarErrorCelular) {
+          <p class="field-error" id="celular-error">Ingresa un número de celular de 10 dígitos.</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="correo" type="email" [(ngModel)]="correo"
+          (ngModelChange)="limpiarEstado()" placeholder="nombre@correo.com"
+          autocomplete="email" inputmode="email" required
+          [attr.aria-invalid]="mostrarErrorCorreo ? 'true' : null"
+          [attr.aria-describedby]="mostrarErrorCorreo ? 'correo-error' : null">
+        @if (mostrarErrorCorreo) {
+          <p class="field-error" id="correo-error">Ingresa un correo electrónico válido.</p>
+        }
+      </div>
+
+      @if (errorRegistro) {
+        <p class="register-error" role="alert">{{ errorRegistro }}</p>
+      }
+
+      <button class="submit-button" type="submit">Registrarme</button>
+    </form>
+
+    <a class="login-link" routerLink="/login">¿Ya tienes cuenta? Inicia sesión</a>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>

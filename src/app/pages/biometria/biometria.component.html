@@ -1,0 +1,44 @@
+<main class="face-screen">
+  <div class="secure-pill" aria-label="Conexión cifrada">
+    <span aria-hidden="true">&#128274;</span><span>Conexión cifrada</span>
+  </div>
+
+  <section class="face-content" aria-labelledby="face-title">
+    <img class="bank-logo" src="assets/logo.png" alt="Ruben S.A. Banco">
+
+    <div class="face-frame" [class.scanning]="verificando" [class.done]="verificado" aria-hidden="true">
+      <svg viewBox="0 0 240 280" role="presentation">
+        <path class="corners" d="M48 45H27a20 20 0 0 0-20 20v21M192 45h21a20 20 0 0 1 20 20v21M48 235H27a20 20 0 0 1-20-20v-21M192 235h21a20 20 0 0 0 20-20v-21" />
+        <ellipse class="face-outline" cx="120" cy="140" rx="57" ry="83" />
+        <circle class="face-eye" cx="98" cy="124" r="4" /><circle class="face-eye" cx="142" cy="124" r="4" />
+        <path class="face-nose" d="M120 136v26h-12" /><path class="face-smile" d="M99 181q21 18 42 0" />
+      </svg>
+      @if (verificado) { <span class="scan-check" aria-label="Verificación completada">✓</span> }
+    </div>
+
+    <h1 id="face-title">{{ verificado ? 'Verificación completada' : 'Verifica que eres tú' }}</h1>
+    <p class="face-description">Encuadra tu rostro dentro del marco. Este registro biométrico se hace una sola vez para confirmar que eres el titular de la cuenta.</p>
+
+    @if (verificando) {
+      <div class="scan-progress" aria-live="polite">
+        <div class="progress-track"><span [style.width.%]="progreso"></span></div>
+        <p>Verificación de demostración {{ progreso }}%</p>
+      </div>
+    } @else if (!verificado) {
+      <ul class="tips">
+        <li>Busca un lugar con buena iluminación</li>
+        <li>Quítate lentes, gorra o mascarilla</li>
+        <li>Mira de frente a la cámara</li>
+      </ul>
+    } @else {
+      <p class="success-note">Verificación facial de demostración completada.</p>
+    }
+
+    <button class="primary-button" type="button" [disabled]="verificando" (click)="verificado ? continuar() : iniciarVerificacion()">
+      {{ verificando ? 'Verificando…' : verificado ? 'Continuar' : 'Iniciar verificación' }}
+    </button>
+    <p class="demo-note">Demostración: no captura ni compara tu rostro con una identidad real.</p>
+  </section>
+
+  <p class="privacy-note"><span aria-hidden="true">&#128737;</span> Tu información viaja protegida con cifrado</p>
+</main>
